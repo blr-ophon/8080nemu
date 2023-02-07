@@ -854,33 +854,8 @@ void cpu_exec_instruction(Cpu8080 *cpu, uint8_t *opcode){
         case 0xcd: //CALL adr
             {
             uint16_t adr = cpu_GetLIWord(cpu);
-            if(adr == 0x0000){
-                printf("end of test\n");
-                exit(1);
-            }else if(adr == 0x0005){
-                if(cpu->reg_C == 0x02){
-                    printf("%c", cpu->reg_E);
-                }
-                if(cpu->reg_C == 0x09){
-                    uint16_t adr = read_reg_DE(cpu);
-                    char letter = cpu->memory->memory[adr];
-                    while(letter != '$'){
-                        letter = cpu->memory->memory[adr];
-                        printf("%c", letter);
-                        adr++;
-                    }
-                    //printf("\n");
-                    /*
-                    if(cpu->step_count > 10){
-                        printf("STEP: %d", cpu->step_count - 6);
-                        exit(1);
-                    }
-                    */
-                }
-            }else{
             stack_push16(cpu, cpu->PC+1);
             cpu->PC = adr -1;
-            }
             break;
             }
         case 0xce: //ACI byte
