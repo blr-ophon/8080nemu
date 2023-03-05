@@ -11,8 +11,8 @@ CFILES := $(wildcard ./src/*.c)
 CFILES := $(filter-out src/test.c, $(CFILES))
 OBJECTS := $(CFILES:$(CFILES_DIR)/%.c=$(BUILD_DIR)/%.o)
 
-MERGED_OBJECT := ./cpuZ80.o
-EXEC := ./cpuZ80test
+MERGED_OBJECT := ./cpu8080.o
+EXEC := ./cpu8080test
 
 all: ${EXEC}
 
