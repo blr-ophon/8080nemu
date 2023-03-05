@@ -11,8 +11,9 @@ CFILES := $(wildcard ./src/*.c)
 CFILES := $(filter-out src/test.c, $(CFILES))
 OBJECTS := $(CFILES:$(CFILES_DIR)/%.c=$(BUILD_DIR)/%.o)
 
-MERGED_OBJECT := ./cpu8080.o
-EXEC := ./cpu8080test
+MERGED_OBJECT := ./8080nemu.o
+EXEC := ./8080nemutest
+DLIB := ./8080nemu.so
 
 all: ${EXEC}
 
@@ -25,6 +26,10 @@ ${MERGED_OBJECT}: ${OBJECTS}
 ${BUILD_DIR}/%.o: ${CFILES_DIR}/%.c
 	mkdir -p $(dir $@)
 	$(CC) ${CFLAGS} ${INCLUDES} -c $< -o $@
+
+
+lib: ${MERGED_OBJECT}
+	${CC} -shared -o ${DLIB} $^ ${CFLAGS}
 
 clean:
 	rm -rf ${OBJECTS}
